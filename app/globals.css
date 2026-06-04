@@ -1,5 +1,5 @@
 :root {
-  --background: #fffefe;
+  --background: #fefefe;
   /* Soft background */
   --foreground: #565656;
   --cream: #fdefee;
@@ -28,13 +28,13 @@ body {
 /* Header */
 .header-container {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .header-title {
   font-size: 3rem;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   color: var(--foreground);
   position: relative;
   display: inline-block;
@@ -58,8 +58,8 @@ body {
 .tabs-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-bottom: 30px;
+  gap: 250px;
+  margin-bottom: 50px;
 }
 
 .tab {
@@ -87,7 +87,7 @@ body {
 .input-form {
   display: flex;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(251, 249, 249, 0.989);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -97,7 +97,7 @@ body {
   padding: 16px 20px;
   font-size: 1rem;
   border: none;
-  background: white;
+  background: rgb(245, 224, 190);
   outline: none;
   color: var(--foreground);
 }
