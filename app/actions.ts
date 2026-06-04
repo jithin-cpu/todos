@@ -19,3 +19,17 @@ export async function toggleTodo(id: number, is_complete: boolean) {
   
   revalidatePath('/')
 }
+
+export async function deleteTodo(id: number) {
+  const supabase = await createClient()
+  await supabase.from('todos').delete().eq('id', id)
+  
+  revalidatePath('/')
+}
+
+export async function clearCompletedTodos() {
+  const supabase = await createClient()
+  await supabase.from('todos').delete().eq('is_complete', true)
+  
+  revalidatePath('/')
+}

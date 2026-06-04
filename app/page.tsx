@@ -1,5 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
-import { addTodo } from './actions'
+import { addTodo, clearCompletedTodos } from './actions'
 import TodoItem from '@/components/TodoItem'
 
 export default async function Page() {
@@ -8,27 +8,59 @@ export default async function Page() {
   const { data: todos } = await supabase.from('todos').select().order('id')
 
   return (
-    <div style={{ padding: '40px 20px', maxWidth: '500px', margin: '0 auto', fontFamily: 'sans-serif' }}>
-      <h1 style={{ marginBottom: '20px' }}>Todos</h1>
-      
-      <form action={addTodo} style={{ display: 'flex', gap: '8px', marginBottom: '30px' }}>
-        <input 
-          type="text" 
-          name="name" 
-          placeholder="What needs to be done?" 
-          required 
-          style={{ flex: 1, padding: '10px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }}
+    <div className="todo-container">
+      <div className="header-container">
+        <h1 className="header-title">
+          TOD
+          <span className="header-title-check">
+            O
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </h1>
+      </div>
+
+      <div className="tabs-container">
+        <div className="tab active">Personal</div>
+        <div className="tab">Professional</div>
+      </div>
+
+      <form action={addTodo} className="input-form">
+        <input
+          type="text"
+          name="name"
+          placeholder="What do you need to do?"
+          required
+          className="input-field"
         />
-        <button type="submit" style={{ padding: '10px 20px', fontSize: '16px', borderRadius: '4px', border: 'none', background: '#000', color: '#fff', cursor: 'pointer' }}>
-          Add
+        <button type="submit" className="add-button">
+          ADD
         </button>
       </form>
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {todos?.map((todo: any) => (
-          <TodoItem key={todo.id} todo={todo} />
-        ))}
-      </ul>
+      <div className="list-card">
+        <ul className="todo-list">
+          {todos?.map((todo: any) => (
+            <TodoItem key={todo.id} todo={todo} />
+          ))}
+          {(!todos || todos.length === 0) && (
+            <li style={{ padding: '20px', textAlign: 'center', color: 'var(--text-muted)' }}>
+              No tasks yet. Add one above!
+            </li>
+          )}
+        </ul>
+
+        {todos && todos.length > 0 && (
+          <div className="list-footer">
+            <form action={clearCompletedTodos}>
+              <button type="submit" className="clear-button">
+                Clear Completed
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
